@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "Site Blcoker",
+	"description": "This extension will prohibit you from accessing any domain you specify",
+	"version": "1.0",
+	"content_scripts":[{
+		"matches": ["*://*/*"],
+		"js": ["SiteBlocker.js"]
+	}],
+	"browser_action":{
+		"default_popup": "SiteBlocker.html"
+	},
+	"web_accessible_resources": [
+		"BlockedSite.html"
+	]
+}
