@@ -1,8 +1,10 @@
 function blockListedSites() {
 	var i, blockList = getCookie("blockList"),
 		blockArray = blockList.split(",");
+	console.log(blockList);
 	for(i=0; i<blockArray.length;i++) {
-		if(window.location.href.match(".*"+blockArray[i]+".*")) {
+		if(blockArray[i] !== "" && window.location.href.match(".*"+blockArray[i]+".*")) {
+			console.log("match found");
 			window.location = chrome.extension.getURL("BlockedSite.html");
 		}
 	}
@@ -23,13 +25,14 @@ function getCookie(cname) {
 }
 
 window.onload=function(){
-	document.getElementById("blockListField").value="www.google.com,www.aol.com,www.yahoo.com";
+	document.getElementById("blockListField").value=getCookie("blockList");
 	document.getElementById("saveListButton").onclick=function() {
-		var value = document.getElementById("blockListField").value,
-			d = new Date();
+		var expires,
+			d = new Date(),
+			value = document.getElementById("blockListField").value;
 		d.setTime(d.getTime()  + (10*365*24*60*60));
-		var expires = "expires="+ d.toUTCString();
-		document.cookie = "blockList" + "=" + value + "; " + expires + "path=/";
+		expires = "expires="+ d.toUTCString();
+		document.cookie = "blockList" + "=" + value + "; " + expires + "; path=/";
 	};
 }
 blockListedSites();
