@@ -12,5 +12,8 @@
 	},
 	"web_accessible_resources": [
 		"BlockedSite.html"
+	],
+	"permissions": [
+		"storage"
 	]
 }
